@@ -44,4 +44,12 @@ describe('ProblemeComponent', () => {
     expect(zone.valid).toBeTruthy();
    });
 
+   it('Prénom devrait etre invalide avec aucune valeur',()=>{
+    let zone=component.problemeForm.controls['prenom'];
+    let errors={}
+    zone.setValue(null);
+    errors=zone.errors||{};
+    expect(errors['require']).toBeFalsy();
+   });
+
 });

@@ -32,11 +32,16 @@ describe('ProblemeComponent', () => {
     expect(zone.valid).toBeFalsy();
    });
 
-   it('Prénom devrait etre valide à 3 caracteres'),()=>{
+   it('Prénom devrait etre valide à 3 caracteres',()=>{
     let zone=component.problemeForm.controls['prenom'];
     zone.setValue('aaa');
     expect(zone.valid).toBeTruthy();
-   }
+   });
 
+   it('Prénom devrait etre valide à 200 caracteres',()=>{
+    let zone=component.problemeForm.controls['prenom'];
+    zone.setValue('a'.repeat(200));
+    expect(zone.valid).toBeTruthy();
+   });
 
 });

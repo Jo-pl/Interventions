@@ -1,26 +1,48 @@
 <!DOCTYPE html>
-<html>
-    
+<html> 
 <body>
 
-    <div class="container">
-        <br/>
-        <div class="card">
-        <div class="card-header text-white bg-secondary">
+        <div class="container">
+                <br/>
+                <div class="card">
+                <div class="card-header text-white bg-secondary"> 
         Déclarer un probleme
+    </div>
+    <div class="card-body">
+    <h5 class="card-title">Special title treatment</h5>
+    <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+    <div class="card-text">
+        <form class="form-horizontal"
+        novalidate
+        (ngSubmit)="save()"
+        [formGroup]="problemeForm">
+        
+        <label for="">Prénom:</label>
+        <input class="form-control" 
+        id="prenomId" 
+        type="text" 
+        placeholder="Votre prénom ici (obligatoire)" 
+        formControlName="prenom"            
+        [ngClass]="{'is-valid': (problemeForm.get('prenom').touched || 
+        problemeForm.get('prenom').dirty) &&
+        (problemeForm.get('prenom').valid),
+        'is-invalid': (problemeForm.get('prenom').touched || 
+        problemeForm.get('prenom').dirty) &&
+        (!problemeForm.get('prenom').valid )}"/>           
+
+        </form>
         </div>
-        <div class="card-body">
-        <h5 class="card-title">Special title treatment</h5>
-        <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-        </div>
-        <div class="card-footer">
+
+    </div>
+    <div class="card-footer">
     <button type="button">
         <i class="fa fa-save">Sauvegarder</i>
-    </button>   
-    </div>
+    </button> 
         </div>
-       </div>
+        </div>
+    </div>
+
 
 </body>
-
 </html>
+

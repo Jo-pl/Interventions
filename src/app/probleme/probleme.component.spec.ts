@@ -76,7 +76,7 @@ describe('ProblemeComponent', () => {
    it('Zone TELEPHONE est vide quand ne pas me notifier',() => {
     component.appliquerNotifications('nePasMeNotifier');
     let zone=component.problemeForm.get('telephone')
-    expect(zone.value).toBeNull;
+    expect(zone.value).toBeNull();
    });
 
    it('Zone ADRESSE COURRIEL est désactivée quand ne pas me notifier',() => {
@@ -89,6 +89,85 @@ describe('ProblemeComponent', () => {
     component.appliquerNotifications('nePasMeNotifier');
     let zone=component.problemeForm.get('courrielGroup.courrielConfirmation')
     expect(zone.disabled).toBeTruthy();
+   });
+
+   it('Zone TELEPHONE est désactivée quand notifier par courriel',() => {
+    component.appliquerNotifications('parCourriel');
+    let zone=component.problemeForm.get('telephone')
+    expect(zone.disabled).toBeTruthy();
+   });
+
+   it('Zone ADRESSE COURRIEL est activée quand notifier par courriel',() => {
+    component.appliquerNotifications('parCourriel');
+    let zone=component.problemeForm.get('courrielGroup.courriel')
+    expect(zone.enabled).toBeTruthy();
+   });
+
+   it('Zone CONFIRMER COURRIEL est activée quand notifier par courriel',() => {
+    component.appliquerNotifications('parCourriel');
+    let zone=component.problemeForm.get('courrielGroup.courrielConfirmation')
+    expect(zone.enabled).toBeTruthy();
+   });
+
+   it('Zone ADRESSE COURRIEL est invalide sans valeur quand notifier par courriel',() => {
+    component.appliquerNotifications('parCourriel');
+    let zone=component.problemeForm.get('courrielGroup.courriel')
+    zone.setValue(null);
+    expect(zone.valid).toBeFalsy();
+   });
+   
+   it('Zone CONFIRMER COURRIEL est invalide sans valeur quand notifier par courriel',() => {
+    component.appliquerNotifications('parCourriel');
+    let zone=component.problemeForm.get('courrielGroup.courrielConfirmation')
+    zone.setValue(null);
+    expect(zone.valid).toBeFalsy();
+   });
+
+   it('Zone ADRESSE COURRIEL est invalide avec un format non conforme',() => {
+    component.appliquerNotifications('parCourriel');
+    let zone=component.problemeForm.get('courrielGroup.courriel')
+    zone.setValue("ffff");
+    expect(zone.valid).toBeFalsy();
+   });
+
+   it('Zone ADRESSE COURRIEL sans valeur et Zone CONFIRMER COURRIEL avec valeur valide retourne null',() => {
+    component.appliquerNotifications('parCourriel');
+    let zone=component.problemeForm.get('courrielGroup.courriel');
+    let zone2=component.problemeForm.get('courrielGroup.courrielConfirmation');
+    let zone3=component.problemeForm.get('courrielGroup');
+    zone.setValue(null);
+    zone2.setValue('22@22.com');
+    expect(zone3.valid).toBeFalsy();
+   });
+
+   it('Zone ADRESSE COURRIEL avec valeur valide et Zone CONFIRMER COURRIEL sans valeur retourne null',() => {
+    component.appliquerNotifications('parCourriel');
+    let zone=component.problemeForm.get('courrielGroup.courriel');
+    let zone2=component.problemeForm.get('courrielGroup.courrielConfirmation');
+    let zone3=component.problemeForm.get('courrielGroup');
+    zone.setValue('22@22');
+    zone2.setValue('');
+    expect(zone3.valid).toBeFalsy();
+   });
+   
+   it('Zones ADRESSE COURRIEL et CONFIRMER COURRIEL sont invalides si les valeurs sont différentes quand notifier par courriel',() => {
+    component.appliquerNotifications('parCourriel');
+    let zone=component.problemeForm.get('courrielGroup.courriel');
+    let zone2=component.problemeForm.get('courrielGroup.courrielConfirmation');
+    let zone3=component.problemeForm.get('courrielGroup');
+    zone.setValue('22@22');
+    zone2.setValue('22@222');
+    expect(zone3.valid).toBeFalsy();
+   });
+
+   it('Zones ADRESSE COURRIEL et CONFIRMER COURRIEL sont valides si les valeurs sont identiques quand notifier par courriel',() => {
+    component.appliquerNotifications('parCourriel');
+    let zone=component.problemeForm.get('courrielGroup.courriel');
+    let zone2=component.problemeForm.get('courrielGroup.courrielConfirmation');
+    let zone3=component.problemeForm.get('courrielGroup');
+    zone.setValue('22@22');
+    zone2.setValue('22@22');
+    expect(zone3.valid).toBeTruthy();
    });
 
 });

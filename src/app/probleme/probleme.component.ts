@@ -20,21 +20,28 @@ export class ProblemeComponent implements OnInit {
   ngOnInit() {
 
     this.problemeForm=this.fb.group({
-
+      
+      descriptionProbleme: ['', [Validators.required, Validators.minLength(5)]],
+      noUnite: '',
+      dateProbleme: {value: Date(), disabled: true}, 
+      //separateur
       prenom:['',[Validators.required, longeurMinimum.longueurMinimum(3)]],
       nom:['',[Validators.required, Validators.maxLength(50)]],
       typeprobleme:['',[Validators.required]],
       typeNotification:[' '],
+      notification:['nePasMeNotifier'],
       courrielGroup: this.fb.group({
         courriel: [{value: '', disabled: true}],
         courrielConfirmation: [{value: '', disabled: true},[Validators.required]],
         },[courrielValidator.courrielConfirmation]),
-       telephone: [{value: '', disabled: true}]
+       telephone: [{value: '', disabled: true},[Validators.required]]
     });
 
     this.problemes.obtenirProblemes()
     .subscribe(cat => this.typeProblemes = cat,
                error => this.errorMessage = <any>error);  
+
+     this.problemeForm.get('notification').valueChanges.subscribe(value=>this.appliquerNotifications(value));          
   }
   //COPY PASTA
   appliquerNotifications(typeNotification: string): void {
@@ -82,6 +89,7 @@ export class ProblemeComponent implements OnInit {
     }else if(typeNotification === 'parMessagetexte'){
 
       telephoneControl.enable();
+      telephoneControl.setValidators([Validators.required,Validators.pattern("[0-9]+"),Validators.minLength(10),Validators.maxLength(10)]);
       courrielConfirmationControl.setValue(null);
       courrielConfirmationControl.disable();
       courrielControl.setValue(null);

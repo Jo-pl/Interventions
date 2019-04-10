@@ -1,1 +1,16 @@
 /* You can add global styles to this file, and also import other style files */
+/* Slide transition */
+Inter-root div.card {
+    animation-duration: .5s;
+    animation-name: slideIn;
+    animation-fill-mode: forwards;
+    transition: transform .5s ease;
+   }
+   @keyframes slideIn {
+    from {
+    transform: translate(-200px);
+    }
+    to {
+    transform: translate(0px);
+    }
+   } 

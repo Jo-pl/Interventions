@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
-import { ITypeProbleme } from './probleme';
+import { ITypeProbleme } from './typeprobleme';
 import { tap, catchError } from 'rxjs/operators';
 
 @Injectable({
@@ -9,7 +9,7 @@ import { tap, catchError } from 'rxjs/operators';
 })
 export class TypeproblemeService {
 
-  private urlDonnees='api/typesprobleme'
+  private urlDonnees='https://interventionsjp.azurewebsites.net/api/Intervention'
 
   constructor(private http: HttpClient) { }
 

@@ -1,7 +1,8 @@
 import { catchError, tap } from 'rxjs/operators';
 import { Observable } from 'rxjs';
-import { ITypeProbleme } from './probleme';
+import { IProbleme } from './probleme';
 import { InMemoryDbService, InMemoryBackendConfig} from 'angular-in-memory-web-api'
+import { ITypeProbleme } from './typeprobleme';
 //HttpClientInMemoryWebApiModule .forRoot(CategorieData, { delay: 1000 })
 
 export interface ICategorie {
